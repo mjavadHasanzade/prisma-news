@@ -77,6 +77,9 @@ const EditUser: NextPage<IHomepage> = ({ news }) => {
 export default EditUser;
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const news = await prisma.news.findUnique({ where: { id: ctx.params.id } });
+  const id = ctx.params?.id ? ctx?.params?.id : 1;
+  const news = await prisma.news.findUnique({
+    where: { id: id as string },
+  });
   return { props: { news: JSON.stringify(news) } };
 };
